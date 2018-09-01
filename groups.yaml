@@ -1,0 +1,96 @@
+  default_view:
+    name: Home
+    view: yes
+    entities:
+      - group.speedtest
+      - switch.cbeebies
+      - sensor.ssl_cert_expiry
+      - camera.freddies_bedroom
+      - automation.lights_on_in_the_evening
+      - switch.virgin
+      - sensor.time
+      - automation.turn_off_lights_at_random_time
+      - sensor.current_version
+      - group.nest_card
+      - light.freddies_bedroom
+      - light.master_bedroom
+      - light.living_room_lamp
+      - media_player.bedroom
+      - media_player.lounge
+      - media_player.kitchen
+      - switch.launch_plex
+
+  lights:
+    name: Lights
+    entities:
+      - light.freddies_bedroom
+      - light.master_bedroom
+      - light.living_room_lamp
+
+  freddies_room:
+    name: Freddie's Room
+    view: yes
+    entities:
+      - light.freddies_bedroom
+
+  living_room:
+    name: Living Room
+    view: yes
+    entities:
+      - media_player.living_room
+      - light.living_room_lamp
+      - switch.virgin
+      - switch.cbeebies
+
+  kitchen:
+    name: Kitchen
+    view: yes
+    entities:
+      - media_player.kitchen  
+
+  master_bedroom:
+    name: Master Bedroom
+    view: yes
+    entities:
+      - light.master_bedroom
+      - media_player.spartacus
+
+  speedtest:
+    name: Speedtest
+    view: no
+    entities:
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+      - sensor.speedtest_ping
+
+  living_room_card:
+    name: Living Room
+    entities:
+      - media_player.lounge
+      - light.living_room_lamp
+
+  kitchen_card:
+    name: Kitchen
+    entities:
+      - media_player.kitchen
+
+  master_bedroom_card:
+    name: Master Bedroom
+    entities: 
+      - light.master_bedroom
+      - media_player.spartacus
+      - media_player.bedroom
+
+  nest_card:
+    name: Nest
+    entities:
+      - sensor.hallway_thermostat_temperature
+      - sensor.hallway_thermostat_target
+      - binary_sensor.hallway_thermostat_online
+      - sensor.hallway_thermostat_humidity
+      - sensor.hallway_thermostat_operation_mode
+
+  theme_card:
+    name: Theme
+    entities:
+      - input_select.current_theme

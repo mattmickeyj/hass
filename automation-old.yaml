@@ -1,0 +1,109 @@
+  - alias: "Media Player - test notification"
+    trigger:
+      - platform: state
+        entity_id: media_player.master_bedroom
+        from: 'paused'
+        to: 'playing'
+    action:
+      service: notify.ios_matts_iphone
+      data:
+        title: Home Assistant
+        message: Kitchen Sonos is playing
+
+  - alias: "Matt's at Work"
+    trigger:
+      - platform: state
+        entity_id: device_tracker.matts_iphone
+        from: 'not_home'
+        to: 'matts_work'
+    condition:
+      condition: time
+      after: '07:00:00'
+      before: '09:30:00'
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+      service: notify.ios_matts_iphone
+      data:
+        title: Matt
+        message: Matt's at work
+
+  - alias: "Cast now session start from off"
+    trigger:
+      - platform: state
+        entity_id: media_player.spartacus
+        from: 'off'
+        to: 'playing'
+    action:
+      service: shell_command.start_castnow_session
+
+  - alias: "Cast now session end"
+    trigger:
+      - platform: state
+        entity_id: media_player.spartacus
+        from: 'playing'
+        to: 'off'
+    action:
+      service: shell_command.end_castnow_session
+
+  - alias: "Cast now session start from idle"
+    trigger:
+      - platform: state
+        entity_id: media_player.spartacus
+        from: 'idle'
+        to: 'playing'
+    action:
+      service: shell_command.start_castnow_session
+
+# Turns on lights 30 mins before sunset
+  - alias: 'Lights on in the evening'
+    trigger:
+      - platform: sun
+        event: sunset
+        offset: '-00:30:00'
+    action:
+      service: homeassistant.turn_on
+      entity_id: light.living_room_lamp
+
+# Turn off lights at random time between 22:07 and 22:43
+  - alias: 'Turn off lights at random time'
+    trigger:
+      - platform: time
+        at: '21:00:00'
+    action:
+      - delay: '{{ (range(1, 2)|random|int) }}:{{ (range(7, 44)|random|int) }}:00'
+      - service: homeassistant.turn_off
+        entity_id: light.living_room_lamp
+
+# Change current theme
+  - alias: 'Change Current Theme'
+    trigger:
+      - platform: state
+        entity_id: input_select.current_theme
+    action:
+      - service: frontend.set_theme
+        data_template:
+          name: "{{ trigger.to_state.state }}"
+
+#Auto-renew SSL Cert
+  - alias: 'Auto Renew SSL Cert'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.ssl_cert_expiry
+      below: 29
+    action:
+      service: shell_command.renew_ssl
+
+  - alias: 'SSL expiry notification'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.ssl_cert_expiry
+      below: 21
+    action:
+      service: notify.[your_notification_preference]
+      data:
+        message: 'Warning - SSL certificate expires in 21 days and has not been automatically renewed'

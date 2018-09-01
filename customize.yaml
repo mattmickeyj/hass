@@ -1,0 +1,45 @@
+    light.freddies_room:
+      homebridge_hidden: true
+    light.freddies_room_2:
+      homebridge_hidden: true
+    light.master_bedroom:
+      homebridge_hidden: true
+    light.master_bedroom_2:
+      homebridge_hidden: true
+    sensor.dark_sky_daily_high_temperature:
+      homebridge_name: High Temperature
+    sensor.dark_sky_daily_low_temperature:
+      homebridge_name: Low Temperature
+    media_player.living_room:
+      homebridge_name: Living Room Sonos
+    media_player.spartacus:
+      homebridge_name: Chromecast
+    switch.kitchen_sonos:
+      haaska_hidden: false
+      icon: mdi:speaker
+    switch.living_room_sonos:
+      haaska_hidden: false
+      icon: mdi:speaker
+    switch.spartacus_control:
+      haaska_hidden: false
+      haaska_name: Plex
+      icon: mdi:cast
+    switch.virgin:
+      haaska_hidden: false
+      haaska_name: Virgin
+      icon: mdi:television
+    switch.cbeebies:
+      haaska_hidden: false
+      haaska_name: CBeebies
+      icon: mdi:television
+    light.living_room_lamp:
+      haaska_hidden: false
+      haaska_name: Lamp
+      icon: mdi:lamp
+    switch.next_episode:
+      haaska_hidden: false
+      haaska_name: Next Episode
+    switch.milkshake:
+      haaska_hidden: false
+      haaska_name: Milkshake
+      icon: mdi:television

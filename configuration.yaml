@@ -1,0 +1,128 @@
+homeassistant:
+  name: Home
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: 165
+  unit_system: metric
+  time_zone: Europe/London
+  customize: !include customize.yaml
+  auth_providers:
+    - type: homeassistant
+    - type: legacy_api_password
+
+http:
+    base_url: !secret base_url
+    ssl_certificate: !secret ssl_certificate
+    ssl_key: !secret ssl_key
+    api_password: !secret http_password
+
+updater:
+
+discovery:
+
+conversation:
+
+api:
+
+alexa:
+  smart_home:
+    filter:
+      include_entities:
+        - switch.launch_plex
+        - light.living_room_lamp
+
+history:
+
+logbook:
+
+sun:
+
+sensor:
+  - platform: darksky
+    api_key: !secret darksky_api_key
+    monitored_conditions:
+      - summary
+      - icon
+      - temperature_max
+      - temperature_min
+      - temperature
+      - hourly_summary
+  - platform: speedtest
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+  - platform: time_date
+    display_options:
+      - time
+  - platform: version
+  - platform: uptime
+  - platform: command_line
+    name: SSL cert expiry
+    unit_of_measurement: days
+    scan_interval: 10800
+    command: "ssl-cert-check -b -c /etc/letsencrypt/live/mattmickeyj.duckdns.org/cert.pem | awk '{ print $NF }'"
+
+mqtt:
+  password: !secret mqtt_password
+
+recorder:
+  purge_interval: 1
+  purge_keep_days: 7
+
+camera:
+  - platform: mjpeg
+    mjpeg_url: http://192.168.0.43/axis-cgi/mjpg/video.cgi
+    name: Freddie's Bedroom
+
+config:
+
+nest:
+  client_id: !secret nest_client_id
+  client_secret: !secret nest_client_secret
+
+duckdns:
+  domain: !secret duckdns_domain
+  access_token: !secret duckdns_token               
+
+hue:
+  bridges:
+    - host: 192.168.0.10
+
+sonos:
+  media_player:
+    hosts:
+      - 192.168.0.11
+      - 192.168.0.12
+      - 192.168.0.60
+
+ios:
+
+logger:
+  default: warning
+  logs:
+    requests.packages.urllib3.connectionpool: critical
+
+############################################
+#                                          #
+#                Includes                  #
+#                                          #
+############################################
+
+frontend: !include frontend.yaml
+
+# media_player: !include media_player.yaml
+
+# device_tracker: !include device_tracker.yaml
+
+group: !include groups.yaml
+
+input_select: !include input_select.yaml
+
+light: !include light.yaml
+
+switch: !include switch.yaml
+
+shell_command: !include shell_command.yaml
+
+script: !include script.yaml

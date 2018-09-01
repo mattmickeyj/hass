@@ -1,0 +1,8 @@
+  jarvis_greeting:    
+    alias: Journey time to work
+    sequence:
+      - service: tts.google_say
+        data_template:
+         entity_id: media_player.living_room
+         message: >
+           {{states.sensor.google_travel_time__driving.state}} minutes.
