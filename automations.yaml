@@ -1,0 +1,53 @@
+# Turns on lights 30 mins before sunset
+  - id: lights_on_in_the_evening
+    alias: 'Lights on in the evening'
+    trigger:
+      - platform: sun
+        event: sunset
+        offset: '-00:30:00'
+    action:
+      service: homeassistant.turn_on
+      entity_id: light.living_room_lamp
+
+# Turn off lights at random time between 22:07 and 22:43
+  - id: turn_off_lights_at_random_time
+    alias: 'Turn off lights at random time'
+    trigger:
+      - platform: time
+        at: '21:00:00'
+    action:
+      - delay: '{{ (range(1, 2)|random|int) }}:{{ (range(7, 44)|random|int) }}:00'
+      - service: homeassistant.turn_off
+        entity_id: light.living_room_lamp
+
+# Change current theme
+  - id: change_current_theme
+    alias: 'Change Current Theme'
+    trigger:
+      - platform: state
+        entity_id: input_select.current_theme
+    action:
+      - service: frontend.set_theme
+        data_template:
+          name: "{{ trigger.to_state.state }}"
+
+#Auto-renew SSL Cert
+  - id: auto_renew_ssl_cert
+    alias: 'Auto Renew SSL Cert'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.ssl_cert_expiry
+      below: 29
+    action:
+      service: shell_command.renew_ssl
+
+#  - id: ssl_expiry_notification
+#    alias: 'SSL expiry notification'
+#    trigger:
+#      platform: numeric_state
+#      entity_id: sensor.ssl_cert_expiry
+#      below: 21
+#    action:
+#      service: notify.[your_notification_preference]
+#      data:
+#        message: 'Warning - SSL certificate expires in 21 days and has not been automatically renewed'

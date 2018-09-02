@@ -1,11 +1,4 @@
-  - alias: "Media Player - test notification"
-    trigger:
-      - platform: state
-        entity_id: media_player.master_bedroom
-        from: 'paused'
-        to: 'playing'
-    action:
-      service: notify.ios_matts_iphone
+atts_iphone
       data:
         title: Home Assistant
         message: Kitchen Sonos is playing

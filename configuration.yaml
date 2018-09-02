@@ -30,6 +30,17 @@ alexa:
       include_entities:
         - switch.launch_plex
         - light.living_room_lamp
+        - switch.virgin
+    entity_config:
+      switch.launch_plex:
+        name: Launch Plex
+        description: Launch Plex on Lounge TV
+      light.living_room_lamp:
+        name: Lamp
+        description: Living Room Lamp
+      switch.virgin:
+        name: Virgin
+        description: Virgin TiVo
 
 history:
 
@@ -37,14 +48,16 @@ logbook:
 
 sun:
 
+config:
+
 sensor:
   - platform: darksky
     api_key: !secret darksky_api_key
     monitored_conditions:
       - summary
       - icon
-      - temperature_max
-      - temperature_min
+      - temperature_high
+      - temperature_low
       - temperature
       - hourly_summary
   - platform: speedtest
@@ -75,8 +88,6 @@ camera:
     mjpeg_url: http://192.168.0.43/axis-cgi/mjpg/video.cgi
     name: Freddie's Bedroom
 
-config:
-
 nest:
   client_id: !secret nest_client_id
   client_secret: !secret nest_client_secret
@@ -101,7 +112,7 @@ ios:
 logger:
   default: warning
   logs:
-    requests.packages.urllib3.connectionpool: critical
+    urllib3.connectionpool: error
 
 ############################################
 #                                          #
@@ -126,3 +137,5 @@ switch: !include switch.yaml
 shell_command: !include shell_command.yaml
 
 script: !include script.yaml
+
+automation: !include automations.yaml

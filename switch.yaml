@@ -13,8 +13,8 @@
         command_off: "socos pause 192.168.0.12"
         friendly_name: Living Room Sonos
       virgin:
-        command_on: "echo IRCODE STANDBY | telnet 192.168.0.38 31339"
-        command_off: "sh /home/homeassistant/.homeassistant/virgin.sh"
+        command_on: "echo IRCODE STANDBY | telnet 192.168.0.23 31339"
+        command_off: "echo IRCODE STANDBY | telnet 192.168.0.23 31339 && echo IRCODE STANDBY | telnet 192.168.0.23 31339"
         friendly_name: Virgin
       cbeebies:
         command_on: "echo SETCH 711 | telnet 192.168.0.38 31339"
